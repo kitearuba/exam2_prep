@@ -55,3 +55,68 @@ int	main(int argc, char *argv[])
 	}
 	return (0);
 }
+
+#include <unistd.h>
+
+void	ft_putchar (char c)
+{
+	write (1, &c, 1);
+}
+
+int	ft_atoi (char *str)
+{
+	int	result;
+
+	result = 0;
+	while (*str < 33 || *str > 126)
+		str++;
+	while ((*str >= 48 && *str <= 57) && *str)
+	{
+		result = (result * 10) + (*str - '0');
+		str++;
+	}
+	return (result);
+}
+
+void ft_putstr (char *str)
+{
+	while (*str)
+	{
+		ft_putchar(*str);
+		str++;
+	}
+}
+
+void	ft_putnbr (int nbr)
+{
+	if (nbr > 9)
+		ft_putnbr(nbr / 10);
+	ft_putchar((nbr % 10) + '0');
+}
+void	ft_tab_mult(char *str)
+{
+	int		i;
+	int		result;
+
+	i = 1;
+	while (i < 10)
+	{
+		ft_putnbr(i);
+		ft_putstr(" x ");
+		ft_putstr(str);
+		ft_putstr(" = ");
+		result = (ft_atoi(str) * i);
+		ft_putnbr(result);
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+int	main (int argc, char **argv)
+{
+	if (argc == 2)
+		ft_tab_mult(argv[1]);
+	else
+		ft_putchar('\n');
+	return (0);
+}
